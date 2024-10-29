@@ -19,7 +19,10 @@
 * vim-rails (https://github.com/tpope/vim-rails)
 * vim-ruby (https://github.com/vim-ruby/vim-ruby)
 
-### From AstroNVim:
+### From AstroNVim
+
 * https://github.com/AstroNvim/AstroNvim/blob/main/lua/astronvim/plugins/dap.lua - debugging
 * https://github.com/NMAC427/guess-indent.nvim
 * https://github.com/stevearc/resession.nvim -- save sessions in vim to reuse later
+* https://github.com/akinsho/toggleterm.nvim -- terminal in vim
+* https://github.com/windwp/nvim-ts-autotag -- html autotag

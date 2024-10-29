@@ -26,16 +26,16 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- paste with <leader>p to avoid replacing the registry with what you are pasting on top of
-vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Amazing paste. Paste on top of other text without updating the registry"} )
 
 -- save to clipboard registry to be used outside vim
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]], { desc = "Copy selection to system clipboard" })
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Copy line to system clipboard" })
 
 --- PLUGINS ---
 
 --- NvimTree file explorer remaps
-vim.keymap.set("n", "<leader>e", vim.cmd.Neotree)
+vim.keymap.set("n", "<leader>e", vim.cmd.Neotree, { desc = "Toggle Neotree" })
 
 --- telescope remaps
 local builtin = require('telescope.builtin')
@@ -48,5 +48,5 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 
 
 --- Fugitive
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open Git Status with Fuigitive" })
 
