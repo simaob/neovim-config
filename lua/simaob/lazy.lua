@@ -39,4 +39,4 @@ require("lazy").setup({
 print("Vim started with Simão's config: ON")
 
 -- Add the remaps
-require("simaob.remap")
+require("simaob.remaps")
