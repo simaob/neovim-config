@@ -15,3 +15,5 @@
 ## Plugins not in use but to review later
 * Harpoon (https://github.com/ThePrimeagen/harpoon)
 * Undotree (https://github.com/mbbill/undotree)
+* vim-rails (https://github.com/tpope/vim-rails)
+* vim-ruby (https://github.com/vim-ruby/vim-ruby)
