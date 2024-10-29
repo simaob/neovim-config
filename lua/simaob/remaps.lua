@@ -1,5 +1,5 @@
 --- GENERIC ---
----
+
 -- Move Lines
 -- Note: When running on iterm2 for Mac requires changing the leftOption key to send "Meta" in the Profiles
 -- Settings
@@ -10,6 +10,27 @@ vim.keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 vim.keymap.set("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
 vim.keymap.set("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 
+-- clear search with enter after search is finished
+vim.keymap.set("n", "<CR>", ":noh<CR><CR>", { desc = "Clear search by pressing enter in normal mode" })
+
+--- From theprimeagen ----
+--- https://github.com/ThePrimeagen/init.lua/blob/master/lua/theprimeagen/remap.lua ---
+
+-- remap J to stay where you are after appending the line below in front of the current line
+vim.keymap.set("n", "J", "mzJ`z")
+
+-- Stay in the middle of the screen when moving between pages or searching new terms
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+-- paste with <leader>p to avoid replacing the registry with what you are pasting on top of
+vim.keymap.set("x", "<leader>p", [["_dP]])
+
+-- save to clipboard registry to be used outside vim
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 --- PLUGINS ---
 
@@ -28,3 +49,4 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 
 --- Fugitive
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
+

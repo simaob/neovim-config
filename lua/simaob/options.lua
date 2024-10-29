@@ -8,6 +8,8 @@ opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.relativenumber = true
 opt.number = true
 
+opt.scrolloff = 8
+
 opt.spell = false
 
 opt.signcolumn = "auto"
