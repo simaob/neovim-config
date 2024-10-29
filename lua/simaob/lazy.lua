@@ -40,3 +40,6 @@ print("Vim started with Simão's config: ON")
 
 -- Add the remaps
 require("simaob.remaps")
+
+-- set notify plugin as the notification system
+vim.notify = require("notify")
