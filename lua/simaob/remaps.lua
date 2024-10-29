@@ -35,7 +35,7 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 --- PLUGINS ---
 
 --- NvimTree file explorer remaps
-vim.keymap.set("n", "<leader>e", vim.cmd.NvimTreeOpen)
+vim.keymap.set("n", "<leader>e", vim.cmd.Neotree)
 
 --- telescope remaps
 local builtin = require('telescope.builtin')
