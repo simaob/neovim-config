@@ -1,4 +1,4 @@
-### Simão's NeoVim Lazy Config
+# Simão's NeoVim Lazy Config
 
 ## Organization
 
@@ -13,7 +13,12 @@
     lazy-lock.json
 
 ## Plugins not in use but to review later
+
 * Harpoon (https://github.com/ThePrimeagen/harpoon)
 * Undotree (https://github.com/mbbill/undotree)
 * vim-rails (https://github.com/tpope/vim-rails)
 * vim-ruby (https://github.com/vim-ruby/vim-ruby)
+
+### From AstroNVim:
+* https://github.com/AstroNvim/AstroNvim/blob/main/lua/astronvim/plugins/dap.lua - debugging
+* 
