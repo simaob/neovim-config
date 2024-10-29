@@ -14,3 +14,4 @@
 
 ## Plugins not in use but to review later
 * Harpoon (https://github.com/ThePrimeagen/harpoon)
+* Undotree (https://github.com/mbbill/undotree)
