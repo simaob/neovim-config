@@ -20,6 +20,7 @@ vim.opt.rtp:prepend(lazypath)
 -- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
+-- load other options
 require("simaob.options")
 
 -- Setup lazy.nvim
@@ -37,5 +38,5 @@ require("lazy").setup({
 
 print("Vim started with Simão's config: ON")
 
--- list of options to load at the start
+-- Add the remaps
 require("simaob.remap")
