@@ -22,4 +22,4 @@
 ### From AstroNVim:
 * https://github.com/AstroNvim/AstroNvim/blob/main/lua/astronvim/plugins/dap.lua - debugging
 * https://github.com/NMAC427/guess-indent.nvim
-* 
+* https://github.com/stevearc/resession.nvim -- save sessions in vim to reuse later

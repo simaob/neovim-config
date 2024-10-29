@@ -1,4 +1,4 @@
-return {
+return { -- config partially obtained form astronvim
     "nvim-neo-tree/neo-tree.nvim",
   specs = {
     { "nvim-lua/plenary.nvim", lazy = true },
