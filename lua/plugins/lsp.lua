@@ -35,7 +35,22 @@ return {
       })
     end
   },
-
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = {
+      { "williamboman/mason.nvim", opts = true },
+      { "williamboman/mason-lspconfig.nvim", opts = true },
+    },
+    opts = {
+      ensure_installed = {
+        "pyright", -- LSP for python
+        "debugpy", -- debugger
+        "black", -- formatter
+        "isort", -- organize imports
+        "taplo", -- LSP for toml (for pyproject.toml files)
+      },
+    },
+  },
   -- LSP
   {
     'neovim/nvim-lspconfig',
@@ -85,32 +100,32 @@ return {
 
       -- next setup from https://github.com/chrisgrieser/nvim-kickstart-python/blob/main/kickstart-python.lua
       -- this snippet enables auto-completion
-			local lspCapabilities = vim.lsp.protocol.make_client_capabilities()
-			lspCapabilities.textDocument.completion.completionItem.snippetSupport = true
+      local lspCapabilities = vim.lsp.protocol.make_client_capabilities()
+      lspCapabilities.textDocument.completion.completionItem.snippetSupport = true
 
-			-- setup pyright with completion capabilities
-			require("lspconfig").pyright.setup({
-				capabilities = lspCapabilities,
-			})
+      -- setup pyright with completion capabilities
+      require("lspconfig").pyright.setup({
+        capabilities = lspCapabilities,
+      })
 
-			-- setup taplo with completion capabilities
-			require("lspconfig").taplo.setup({
-				capabilities = lspCapabilities,
-			})
+      -- setup taplo with completion capabilities
+      require("lspconfig").taplo.setup({
+        capabilities = lspCapabilities,
+      })
 
-			-- ruff uses an LSP proxy, therefore it needs to be enabled as if it
-			-- were a LSP. In practice, ruff only provides linter-like diagnostics
-			-- and some code actions, and is not a full LSP yet.
-			require("lspconfig").ruff.setup({
-				-- organize imports disabled, since we are already using `isort` for that
-				-- alternative, this can be enabled to make `organize imports`
-				-- available as code action
-				settings = {
-					organizeImports = false,
-				},
-				-- disable ruff as hover provider to avoid conflicts with pyright
-				on_attach = function(client) client.server_capabilities.hoverProvider = false end,
-			})
+      -- ruff uses an LSP proxy, therefore it needs to be enabled as if it
+      -- were a LSP. In practice, ruff only provides linter-like diagnostics
+      -- and some code actions, and is not a full LSP yet.
+      require("lspconfig").ruff.setup({
+        -- organize imports disabled, since we are already using `isort` for that
+        -- alternative, this can be enabled to make `organize imports`
+        -- available as code action
+        settings = {
+          organizeImports = false,
+        },
+        -- disable ruff as hover provider to avoid conflicts with pyright
+        on_attach = function(client) client.server_capabilities.hoverProvider = false end,
+      })
 
       require('mason-lspconfig').setup({
         ensure_installed = {
