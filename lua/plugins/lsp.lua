@@ -116,8 +116,6 @@ return {
         ensure_installed = {
           "pyright", -- LSP for python
           "ruff", -- linter for python (includes flake8, pep8, etc.)
-          "debugpy", -- debugger
-          "isort", -- organize imports
           "taplo", -- LSP for toml (for pyproject.toml files)
         },
         handlers = {
