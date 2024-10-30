@@ -34,10 +34,10 @@ vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Copy line to system clipboar
 
 --- PLUGINS ---
 
---- NvimTree file explorer remaps
+-- NvimTree file explorer remaps
 vim.keymap.set("n", "<leader>e", vim.cmd.Neotree, { desc = "Toggle Neotree" })
 
---- telescope remaps
+-- telescope remaps
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = 'Telescope find files in git' })
@@ -47,6 +47,6 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' 
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
 
---- Fugitive
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open Git Status with Fuigitive" })
+-- Fugitive
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open Git Status with Fugitive" })
 

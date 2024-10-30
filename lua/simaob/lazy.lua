@@ -23,6 +23,9 @@ vim.g.maplocalleader = "\\"
 -- load other options
 require("simaob.options")
 
+-- load language specific options
+require("simaob.options_python")
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {

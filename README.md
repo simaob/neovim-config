@@ -26,3 +26,4 @@
 * https://github.com/stevearc/resession.nvim -- save sessions in vim to reuse later
 * https://github.com/akinsho/toggleterm.nvim -- terminal in vim
 * https://github.com/windwp/nvim-ts-autotag -- html autotag
+* https://github.com/Vigemus/iron.nvim - a Python REPL

@@ -1,5 +1,10 @@
 vim.g.lazygit_config = true
 
+--- Airline configs
+vim.g['airline#extensions#tabline#enabled'] = 1
+vim.g['airline#extensions#poetv#enabled'] = 1
+--- / Airline
+
 local opt = vim.opt
 
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
@@ -22,7 +27,6 @@ opt.background = "dark"
 opt.showbreak = "<\\"
 
 opt.filetype = "on"
-
 
 --- tabs
 opt.softtabstop = 2
