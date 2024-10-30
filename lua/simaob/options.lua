@@ -49,3 +49,9 @@ opt.termguicolors = true -- True color support
 --- undos
 opt.undofile = true
 opt.undolevels = 10000
+
+-- folding
+opt.foldenable = true
+opt.foldlevelstart = 10
+opt.foldnestmax = 10
+opt.foldmethod = "indent"
