@@ -46,3 +46,6 @@ require("simaob.remaps")
 
 -- set notify plugin as the notification system
 vim.notify = require("notify")
+
+-- load toggle term options after all plugins are loaded
+require("simaob.options_toggleterm")
