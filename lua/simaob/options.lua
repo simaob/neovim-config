@@ -33,6 +33,7 @@ opt.softtabstop = 2
 opt.tabstop = 2
 opt.expandtab = true
 opt.shiftwidth = 2 -- Size of an indent
+opt.smartindent = true
 
 --- search
 opt.ttyfast = true

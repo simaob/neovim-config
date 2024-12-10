@@ -43,11 +43,12 @@ return {
     },
     opts = {
       ensure_installed = {
-        "pyright", -- LSP for python
+        -- "pyright", -- LSP for python
         "debugpy", -- debugger
-        "black", -- formatter
+        -- "black", -- formatter
         "isort", -- organize imports
         "taplo", -- LSP for toml (for pyproject.toml files)
+        "rust-analyzer",
       },
     },
   },
@@ -104,33 +105,39 @@ return {
       lspCapabilities.textDocument.completion.completionItem.snippetSupport = true
 
       -- setup pyright with completion capabilities
-      require("lspconfig").pyright.setup({
-        capabilities = lspCapabilities,
-      })
+      --require("lspconfig").pyright.setup({
+      --  capabilities = lspCapabilities,
+      --})
 
       -- setup taplo with completion capabilities
       require("lspconfig").taplo.setup({
         capabilities = lspCapabilities,
       })
 
+      require("lspconfig").rust_analyzer.setup {
+        settings = {
+         ["rust-analyzer"] = {},
+        }
+      }
+
       -- ruff uses an LSP proxy, therefore it needs to be enabled as if it
       -- were a LSP. In practice, ruff only provides linter-like diagnostics
       -- and some code actions, and is not a full LSP yet.
-      require("lspconfig").ruff.setup({
-        -- organize imports disabled, since we are already using `isort` for that
-        -- alternative, this can be enabled to make `organize imports`
-        -- available as code action
-        settings = {
-          organizeImports = false,
-        },
-        -- disable ruff as hover provider to avoid conflicts with pyright
-        on_attach = function(client) client.server_capabilities.hoverProvider = false end,
-      })
+      --require("lspconfig").ruff.setup({
+      --  -- organize imports disabled, since we are already using `isort` for that
+      --  -- alternative, this can be enabled to make `organize imports`
+      --  -- available as code action
+      --  settings = {
+      --    organizeImports = false,
+      --  },
+      --  -- disable ruff as hover provider to avoid conflicts with pyright
+      --  on_attach = function(client) client.server_capabilities.hoverProvider = false end,
+      --})
 
       require('mason-lspconfig').setup({
         ensure_installed = {
-          "pyright", -- LSP for python
-          "ruff", -- linter for python (includes flake8, pep8, etc.)
+          -- "pyright", -- LSP for python
+          -- "ruff", -- linter for python (includes flake8, pep8, etc.)
           "taplo", -- LSP for toml (for pyproject.toml files)
         },
         handlers = {

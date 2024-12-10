@@ -18,6 +18,7 @@ return {
         "python",
         "query",
         "ruby",
+        "rust",
         "toml",
         "scss",
         "sql",
