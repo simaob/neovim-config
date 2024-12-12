@@ -26,6 +26,7 @@ return {
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
           ['<C-d>'] = cmp.mapping.scroll_docs(4),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
         }),
         snippet = {
           expand = function(args)
@@ -119,6 +120,13 @@ return {
          ["rust-analyzer"] = {},
         }
       }
+
+      require("lspconfig").ruby_lsp.setup({
+        init_options = {
+          formatter = "standard",
+          linters = { "standard" },
+        }
+      })
 
       -- ruff uses an LSP proxy, therefore it needs to be enabled as if it
       -- were a LSP. In practice, ruff only provides linter-like diagnostics
