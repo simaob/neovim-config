@@ -1,19 +1,35 @@
+-- ~/.config/nvim/lua/plugins/debugging_python.lua
 return {
-  -- Configuration for the python debugger
-  -- - configures debugpy for us
-  -- - uses the debugpy installation from mason
   {
     "mfussenegger/nvim-dap-python",
-    dependencies = "mfussenegger/nvim-dap",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "rcarriga/nvim-dap-ui",
+    },
     config = function()
-      -- fix: E5108: Error executing lua .../Local/nvim-data/lazy/nvim-dap-ui/lua/dapui/controls.lua:14: attempt to index local 'element' (a nil value)
-      -- see: https://github.com/rcarriga/nvim-dap-ui/issues/279#issuecomment-1596258077
+      -- UI first (this also fixes the old dap-ui element nil error)
       local dap, dapui = require("dap"), require("dapui")
       dapui.setup()
-      -- uses the debugypy installation by mason
-      local debugpyPythonPath = require("mason-registry").get_package("debugpy"):get_install_path()
-      .. "/venv/bin/python3"
-      require("dap-python").setup(debugpyPythonPath, {}) ---@diagnostic disable-line: missing-fields
+
+      -- Mason v2: don't use get_install_path().
+      -- Use Neovim's stdpath("data") to locate Mason, then the debugpy venv.
+      local mason = vim.fn.stdpath("data") .. "/mason"
+      local debugpy_python = mason .. "/packages/debugpy/venv/bin/python" -- macOS/Linux
+      -- If you really want python3 specifically, you could use:
+      -- local debugpy_python = mason .. "/packages/debugpy/venv/bin/python3"
+
+      -- Optional: sanity check in case debugpy isn't installed yet
+      if vim.fn.executable(debugpy_python) == 0 then
+        vim.notify(
+          ("debugpy not found at %s. Run :Mason and install 'debugpy'."):format(debugpy_python),
+          vim.log.levels.WARN
+        )
+      end
+
+      require("dap-python").setup(debugpy_python, {
+        -- example extras:
+        -- test_runner = "pytest",
+      })
     end,
-  }
+  },
 }
