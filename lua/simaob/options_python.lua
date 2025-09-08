@@ -1,3 +1,5 @@
+if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 -- SETUP BASIC PYTHON-RELATED OPTIONS
 
 -- The filetype-autocmd runs a function when opening a file with the filetype

@@ -6,7 +6,6 @@ return {
 
     configs.setup({
       ensure_installed = {
-        "c",
         "css",
         "dockerfile", 
         "heex",
@@ -15,11 +14,8 @@ return {
         "lua",
         "markdown",
         "markdown_inline",
-        "python",
         "query",
         "ruby",
-        "rust",
-        "toml",
         "scss",
         "sql",
         "vim",

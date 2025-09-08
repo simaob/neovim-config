@@ -45,11 +45,11 @@ return {
     opts = {
       ensure_installed = {
         -- "pyright", -- LSP for python
-        "debugpy", -- debugger
+        -- "debugpy", -- debugger
         -- "black", -- formatter
-        "isort", -- organize imports
-        "taplo", -- LSP for toml (for pyproject.toml files)
-        "rust-analyzer",
+        -- "isort", -- organize imports
+        -- "taplo", -- LSP for toml (for pyproject.toml files)
+        -- "rust-analyzer",
       },
     },
   },
@@ -146,7 +146,9 @@ return {
         ensure_installed = {
           -- "pyright", -- LSP for python
           -- "ruff", -- linter for python (includes flake8, pep8, etc.)
-          "taplo", -- LSP for toml (for pyproject.toml files)
+          -- "taplo", -- LSP for toml (for pyproject.toml files)
+          "ruby-lsp", -- LSP for ruby
+          "rubocop", -- linter for ruby
         },
         handlers = {
           -- this first function is the "default handler"
