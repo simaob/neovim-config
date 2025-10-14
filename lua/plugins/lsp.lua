@@ -64,99 +64,83 @@ return {
       {'williamboman/mason-lspconfig.nvim'},
     },
     init = function()
-      -- Reserve a space in the gutter
-      -- This will avoid an annoying layout shift in the screen
       vim.opt.signcolumn = 'yes'
     end,
     config = function()
-      local lsp_defaults = require('lspconfig').util.default_config
-
-      -- Add cmp_nvim_lsp capabilities settings to lspconfig
-      -- This should be executed before you configure any language server
-      lsp_defaults.capabilities = vim.tbl_deep_extend(
-        'force',
-        lsp_defaults.capabilities,
-        require('cmp_nvim_lsp').default_capabilities()
+      -- nvim-cmp capabilities
+      local capabilities = require('cmp_nvim_lsp').default_capabilities(
+        vim.lsp.protocol.make_client_capabilities()
       )
 
-      -- LspAttach is where you enable features that only work
-      -- if there is a language server active in the file
+      -- Helper that prefers the new API (0.11+) and falls back cleanly
+      local function lsp_setup(server, opts)
+        opts = opts or {}
+        -- Try Neovim 0.11+ native configure+enable
+        if vim.lsp and vim.lsp.config and vim.lsp.enable then
+          local ok = pcall(vim.lsp.config, server, opts) -- handles callable metatable
+          if ok then
+            vim.lsp.enable(server)
+            return
+          end
+        end
+        -- Fallback to nvim-lspconfig (older Neovim, or if native config failed)
+        require('lspconfig')[server].setup(opts)
+      end
+
+      -- Keymaps when an LSP attaches
       vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP actions',
         callback = function(event)
-          local opts = {buffer = event.buf}
-
-          vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+          local opts = { buffer = event.buf }
+          vim.keymap.set('n', 'K',  '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
           vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
           vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
           vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
           vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
           vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
           vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-          vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-          vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-          vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+          vim.keymap.set('n', '<F2>',  '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+          vim.keymap.set({'n','x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+          vim.keymap.set('n', '<F4>',  '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
         end,
       })
 
+      -- Explicit setups
+      lsp_setup('taplo', { capabilities = capabilities })
 
-      -- next setup from https://github.com/chrisgrieser/nvim-kickstart-python/blob/main/kickstart-python.lua
-      -- this snippet enables auto-completion
-      local lspCapabilities = vim.lsp.protocol.make_client_capabilities()
-      lspCapabilities.textDocument.completion.completionItem.snippetSupport = true
-
-      -- setup pyright with completion capabilities
-      --require("lspconfig").pyright.setup({
-      --  capabilities = lspCapabilities,
-      --})
-
-      -- setup taplo with completion capabilities
-      require("lspconfig").taplo.setup({
-        capabilities = lspCapabilities,
+      lsp_setup('rust_analyzer', {
+        capabilities = capabilities,
+        settings = { ['rust-analyzer'] = {} },
       })
 
-      require("lspconfig").rust_analyzer.setup {
-        settings = {
-         ["rust-analyzer"] = {},
-        }
+      lsp_setup('ruby_lsp', {
+        capabilities = capabilities,
+        init_options = { formatter = 'standard', linters = { 'standard' } },
+      })
+
+      -- mason-lspconfig: ensure & auto-setup
+      local explicitly_configured = {
+        taplo = true,
+        rust_analyzer = true,
+        ruby_lsp = true,
       }
-
-      require("lspconfig").ruby_lsp.setup({
-        init_options = {
-          formatter = "standard",
-          linters = { "standard" },
-        }
-      })
-
-      -- ruff uses an LSP proxy, therefore it needs to be enabled as if it
-      -- were a LSP. In practice, ruff only provides linter-like diagnostics
-      -- and some code actions, and is not a full LSP yet.
-      --require("lspconfig").ruff.setup({
-      --  -- organize imports disabled, since we are already using `isort` for that
-      --  -- alternative, this can be enabled to make `organize imports`
-      --  -- available as code action
-      --  settings = {
-      --    organizeImports = false,
-      --  },
-      --  -- disable ruff as hover provider to avoid conflicts with pyright
-      --  on_attach = function(client) client.server_capabilities.hoverProvider = false end,
-      --})
 
       require('mason-lspconfig').setup({
         ensure_installed = {
-          -- "pyright", -- LSP for python
-          -- "ruff", -- linter for python (includes flake8, pep8, etc.)
-          -- "taplo", -- LSP for toml (for pyproject.toml files)
-          "ruby-lsp", -- LSP for ruby
-          "rubocop", -- linter for ruby
+          -- "pyright",
+          -- "ruff",
+          -- "taplo",
+          "erb-lint",
+          "ruby-lsp",
+          "rubocop",
         },
         handlers = {
-          -- this first function is the "default handler"
-          -- it applies to every language server without a "custom handler"
           function(server_name)
-            require('lspconfig')[server_name].setup({})
+            -- Skip if we already configured it above
+            if explicitly_configured[server_name] then return end
+            lsp_setup(server_name, { capabilities = capabilities })
           end,
-        }
+        },
       })
     end
   }
