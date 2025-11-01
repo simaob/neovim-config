@@ -130,8 +130,8 @@ return {
           -- "pyright",
           -- "ruff",
           -- "taplo",
-          "erb-lint",
-          "ruby-lsp",
+          -- "erb-lint",
+          -- "ruby-lsp",
           "rubocop",
         },
         handlers = {
